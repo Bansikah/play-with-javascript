@@ -10,6 +10,7 @@ public class Main {
         System.out.println("\n"+"2. Subtraction");
         System.out.println("\n"+"3. Division");
         System.out.println("\n"+"4. Multiiplication");
+        System.out.println("\n"+"5. Exit"+"\n");
 
         Scanner choice = Calculator.input;
 
@@ -33,6 +34,10 @@ public class Main {
                 double product = Calculator.multiplication();
                 System.out.println("\n"+"The product is: "+product);
                 break;
+
+            case 5:
+                System.out.println("\n"+"Exited...");
+                break;    
 
             default:
                 System.out.println("\n"+"Invalid option");
