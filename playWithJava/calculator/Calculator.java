@@ -17,7 +17,6 @@ public class Calculator{
         return sum;
     }
 
-
     public static int subtraction(){
         getInputs();
         int minus = numbers[1] - numbers[0];
@@ -28,5 +27,14 @@ public class Calculator{
     public static double division(){
         getInputs();
         int divide = numbers[1] / numbers[0]; 
+
+        return divide;
+    }
+
+    public static double multiplication(){
+        getInputs();
+        int multiply = numbers[0] * numbers[1];
+
+        return multiply;
     }
 }
