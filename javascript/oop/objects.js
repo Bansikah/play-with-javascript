@@ -65,7 +65,7 @@ delete Circle2.location;
 
 //Enumerate objects
 for (let key in circle){
-    if (typeof circle[key] !== 'function'){
+    if (typeof circle[key]!== 'function'){
        console.log(key, circle[key], );
     }
    const keys =  Object.keys(circle);
@@ -77,18 +77,31 @@ for (let key in circle){
    }
 }
 
-//Implementing abstraction
+//Implementing abstraction and adding getters and setters
 function Cirlcle2(radius){
     let defualtLocation = {x :0, y : 0}
-    let computedLocation = function(Factory){
-        return defualtLocation;
+  this.getDefualtLocation = function()
+  {
+    return defualtLocation;
+  }
+
+this.draw = function (){
+    console.log("drawing for oubject 2");
+}
+
+  Object.defineProperty(this, 'defualtLocation',
+  {
+    get: function() {
+      return defualtLocation;
+    },
+    set: function(value) {
+        if (!value.x || value.y)
+        throw new Error(" Invalid default location");
+      defualtLocation = value;
     }
-    this.radius = radius;
-    this.draw = function(){
-        console.log("drawing for object 2");
-        console.log(computedLocation(0.1));
-    }
+  });
 }
 
 const circle3 = new Cirlcle2(1);
+circle3.defualtLocation = {x: 1, y: 1};
 circle3.draw();
