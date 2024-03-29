@@ -1,113 +1,58 @@
-let sales = 123_456_789; //this is of type number
-let course = "TypeScript"; //this is of type string
-let is_complete = true; //this is of type boolean
-let something; //this is of type any
+import axios from 'axios';
 
-let render = function(ducument: any){
-    console.log(ducument);
-}
+const OKPage = (): void => {
+  const baseURL: string = 'http://localhost:5173'; // Specifying the base URL
+  const api = axios.create({
+    baseURL,
+    timeout: 5000, // Set timeout to 5 seconds
+  });
 
-
-//Arrays
-let numbers: number[] = [1,2,3];
-numbers.forEach(n => n.toPrecision)
-
-//Tuples: A fixed length of an array where each element has a particular type, most significant when we have key: value pairs
-let tuple: [string, number] = ["Hello", 123];
-tuple[1] = 456;
-
-
-//Enums
-const enum Color {
-    Red,
-    Green,
-    Blue
-}
-
-let color: Color = Color.Green;
-console.log(color);
-
-//Functions
-function add(a: number, b: number): number {
-    return a + b;
-}
-
-let result = add(1, 2);
-console.log(result);
-
-//Objects, Using type aliases in our code
-type Employee = {
-    readonly name: string;
-    age: number;
-    retired:(date: Date) => void;
-}
-
-let employee1: Employee = {
-    name: "John",
-    age: 30,
-    retired: (date: Date) => {
-        console.log(date);
-    }
-}
-let employe2: Employee = { name: 'Noel', age: 20, 
-retired: (Date) =>{
-    console.log(Date);
-}
-}
-
-//Union Types: giving a variable or function two or more types
-function KgToLbs(weight: number | string): number {
-    if (typeof weight === "number") {
-        return weight * 2.2;
-    } else {
-        return 0;
-    }
-}
-
-KgToLbs(10.0)
-KgToLbs("10.0kg")
-
-//Intersection Types: an object with both a string and a number at same time
-type Dragable = {
-    drag: () => void;
-}
-
-type Resizable = {
-    resize: () => void;
-}
-
-type UIWidget =  Dragable & Resizable;
-
-let textBox : UIWidget = {
-    drag: () => {},
-    resize: () => {}
-}
-
-//Literal Types:  Limit the values we assign to a partticular variable
-type Quantity = 50 | 100;
-let quantity: Quantity = 100;
+    // Define a mock function to simulate API responses, allowing for different scenarios
+    const mockSend_MoneyAPI = async (
+        senderPhoneNumber: string,
+        recipientPhoneNumber: string,
+        amount: number,
+        mockSuccess: boolean = true
+      ): Promise<unknown> => {
+        try {
+          console.log('Making mock API call...'); // Clarifying it's a mock call
+          if (mockSuccess) {
+            // Simulate a successful response
+            const response = {
+              status: 'SUCCESS',
+              message: 'Transaction completed successfully',
+              transactionId: '123456', // Example transaction ID
+              // ...other relevant data
+            };
+            return response;
+          } else {
+            // Simulate an error response
+            throw new Error('Transaction failed'); // Or throw a custom error with more details
+          }
+        } catch (error) {
+          console.error('Mock API call error:', error);
+          throw error;
+        }
+      };
 
 
-type Metric = 'cm' | 'inch';//Also applicable for strings
-let metric: Metric = 'cm';
 
-//Nullable Types: 
-function greet(name: string | null){
-    console.log(`Hello ${name}`);
-}
+  // Call the mockSend_MoneyAPI function, demonstrating both success and failure
+  mockSend_MoneyAPI('1234567890', '0987654321', 50)
+  .then((response) => {
+    console.log('Mock API Successful Response:', response);
+  })
+  .catch((error) => {
+    console.error('Mock API Error Response:', error);
+  });
 
-greet(null)
+mockSend_MoneyAPI('4567890123', '1234567890', 100, false) // Simulate a failure
+  .then((response) => {
+    console.log('Mock API Successful Response:', response); // This won't be reached
+  })
+  .catch((error) => {
+    console.error('Mock API Error Response:', error);
+  });
+};
 
-//Optional Chainging
-type Customer = {
-    birthday: Date;
-}
-
-function getCustomer(id: number): Customer | null {
-
-    if (id === 1) {
-        return { birthday: new Date() };
-    } else {
-        return null;
-    }
-}
+export default OKPage;
