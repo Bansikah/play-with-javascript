@@ -7,5 +7,12 @@
 </head>
 <body>
     <h1>New Users</h1>
+
+    <form action="/users" method="post">
+        <label >FirstName
+            <input type="text" name="firstName" value=" <%= locals.firstName %>" />
+        </label>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>

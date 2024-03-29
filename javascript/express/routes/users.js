@@ -2,16 +2,26 @@ const express = require('express');
 const router = express.Router();
 
 
+
 router.get('/', (req, res) => {
     res.render('user'); 
 });
 
 router.get('/new', (req, res) => {
-    res.render('newUser'); 
+    res.render('newUser', { firstName: 'John'}); 
 });
 
 
 router.post('/', (req, res) => {
+    const isValid = true;
+    if (isValid) {
+        users.push({firstName: req.body.firstName});
+        res.redirect(`/users/${users.length - 1}`); 
+    } else {
+        res.redirect('newUser',{firstName: req.body.firstName})
+        res.status(400).send('Invalid user'); 
+    }
+    console.log(req.body.firstName);
     res.send('Create user'); 
 });
 
@@ -31,6 +41,7 @@ router.route('/:id').get( (req, res) => {
 //using the param method with routes, a param is a middleware , it seats between the  client and  the employess
 
 const users = [{ name: 'John'}, { name: 'Noel' }];
+
 router.param("id", (req, res, next, id) => {
     //req.id = id;
     //console.log(req.id);
@@ -38,6 +49,7 @@ router.param("id", (req, res, next, id) => {
     next();
     //next();
 });
+
 
 /*
 router.post('/', (req, res) => {
